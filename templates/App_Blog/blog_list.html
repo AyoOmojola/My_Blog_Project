@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block body_block %}
+
+{% for blog in blogs %}
+<h2>{{ blog.blog_title }}</h2>
+<h6><i>{{ blog.publish_date }}</i></h6>
+
+<div class="row" >
+    <div class="col-sm-4">
+        <img src="/media/{{blog.blog_image}}" alt="{{blog.blog_title}}" title="{{blog.blog_title}}" style="width:100%;">
+    </div>
+
+
+    <div class="col-sm-8">
+        <p>{{blog.blog_contain|range_filter|linebreaks }}
+            <a href="{% url 'App_Blog:blog_details' blog_id=blog.id %}">Read More</a>
+        </p>
+        <h6>Posted By: <a href="#">{{blog.author}}</a></h6>
+        <h6 style="color: blue;">{{ blog.liked_blog.count }} Likes | {{ blog.blog_comment.count }} Comments</h6>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+{% endfor %}
+
+{% endblock %}
